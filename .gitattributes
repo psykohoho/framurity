@@ -1,0 +1,14 @@
+#
+# https://help.github.com/articles/dealing-with-line-endings/
+#
+# Same line endings on every OS, so a build on Windows and one on GitHub's Linux servers give the same jar.
+*               text=auto eol=lf
+*.jar           binary
+*.png           binary
+
+# Linux start script should use lf
+/gradlew        text eol=lf
+
+# These are Windows script files and should use crlf
+*.bat           text eol=crlf
+

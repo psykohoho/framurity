@@ -1,0 +1,19 @@
+{
+	"schemaVersion": 1,
+	"id": "framurity",
+	"version": "${version}",
+	"name": "Framurity",
+	"description": "Shows the drand public randomness beacon (new value every 3 s) as a small code in the corner of the HUD, and gets a public timestamp authority to sign a tiny thumbnail of each round, so a recording can later be checked for cuts with the verifier tool.",
+	"authors": ["Ameer"],
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["dev.ameer.framurity.Framurity"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

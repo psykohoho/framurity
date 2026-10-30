@@ -1,0 +1,7 @@
+build/
+.gradle/
+run/
+*.iml
+.idea/
+__pycache__/
+verifier/test_*

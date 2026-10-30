@@ -1,0 +1,40 @@
+# Builds the mod on GitHub's servers from the public source. Pushing a tag like v1.0.0 publishes a
+# release with the jar and its SHA-256, so players can download a build anyone can trace back to this code.
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Build
+        run: chmod +x gradlew && ./gradlew build --no-daemon
+      - name: SHA-256
+        run: (cd build/libs && sha256sum *.jar) | tee SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: framurity
+          path: |
+            build/libs/*.jar
+            SHA256SUMS.txt
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/libs/framurity-*.jar
+            SHA256SUMS.txt
+            verifier/verify.py
